@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Loja</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/cadastro.css">
+</head>
+<body>
+    <header>
+        <h1>Detalhes da Loja</h1>
+    </header>
+
+    <div class="container">
+        <div class="section">
+            <h2 th:text="${loja.nome}">Nome da Loja</h2>
+            <table>
+                <tr><th>CNPJ</th><td th:text="${loja.cnpj}"></td></tr>
+                <tr><th>Endereço</th><td th:text="${loja.endereco} + ', ' + ${loja.numero} + ' - ' + ${loja.bairro}"></td></tr>
+                <tr><th>CEP</th><td th:text="${loja.cep}"></td></tr>
+                <tr><th>Telefone</th><td th:text="${loja.telefone}"></td></tr>
+                <tr><th>Email</th><td th:text="${loja.email}"></td></tr>
+                <tr><th>Cidade</th><td th:text="${loja.cidade}"></td></tr>
+                <tr><th>Estado</th><td th:text="${loja.estado}"></td></tr>
+                <tr><th>Funcionários</th>
+                    <td th:if="${funcionarios != null and !funcionarios.isEmpty()}">
+                        <select id="funcSelectLoja" style="margin-top:6px; padding:8px; border-radius:4px; min-width:260px;" onchange="if(this.value) window.location.href='/detalhesFuncionario?id='+this.value;">
+                            <option selected disabled>Funcionários</option>
+                            <option th:each="f : ${funcionarios}" th:value="${f.id}" th:text="${f.nome} + ' - ' + ${f.cargo}"></option>
+                        </select>
+                        <div th:if="${funcionarios == null or funcionarios.isEmpty()}" style="color:#999;">Nenhum funcionário</div>
+                    </td>
+                </tr>
+            </table>
+
+            <div style="margin-top:12px;">
+                <a th:href="@{'/editarLoja'(id=${loja.id})}" class="btn btn-primary">Editar</a>
+                <a th:href="@{'/excluirLoja'(id=${loja.id})}" onclick="return confirm('Deseja realmente excluir esta loja?')" class="btn btn-danger">Deletar</a>
+                <a href="/administrativo" class="btn btn-secondary">Voltar</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Produtos desta loja</h3>
+            <div th:if="${produtos != null and !produtos.isEmpty()}">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Código de Barras</th>
+                            <th>Data Fabricação</th>
+                            <th>Data Validade</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="p : ${produtos}">
+                            <td th:text="${p.id}"></td>
+                            <td th:text="${p.nome}"></td>
+                            <td th:text="${p.codigoBarra}"></td>
+                            <td th:text="${#temporals.format(p.dataFabricacao, 'dd/MM/yyyy')}"></td>
+                            <td th:text="${#temporals.format(p.dataValidade, 'dd/MM/yyyy')}"></td>
+                            <td th:text="${#numbers.formatDecimal(p.valor, 1, 2, 'COMMA')}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:if="${produtos == null or produtos.isEmpty()}" style="color:#999;">Nenhum produto cadastrado para esta loja.</div>
+        </div>
+    </div>
+</body>
+</html>
