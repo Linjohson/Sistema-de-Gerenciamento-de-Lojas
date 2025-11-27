@@ -1,74 +1,158 @@
-## 🌟 Sistema de Gerenciamento de Lojas
+# Sistema de Gerenciamento de Lojas - Linjohson | Desenvolvedor Java Full Stack
 
------
+<div align="center">
 
-### 📖 Visão Geral
+  ![Badge](https://img.shields.io/badge/Java-17+-orange?style=for-the-badge&logo=java)
+  ![Badge](https://img.shields.io/badge/Spring%20Boot-Backend-brightgreen?style=for-the-badge&logo=springboot)
+  ![Badge](https://img.shields.io/badge/Thymeleaf-Templates-blue?style=for-the-badge&logo=thymeleaf)
+  ![Badge](https://img.shields.io/badge/H2-Database-lightgrey?style=for-the-badge&logo=h2database)
+  ![Badge](https://img.shields.io/badge/Status-Ativo-success?style=for-the-badge)
 
-Esta é uma aplicação web completa desenvolvida com **Spring Boot 3.4** para fornecer uma solução robusta e intuitiva para o **Gerenciamento Administrativo de Lojas**. O sistema permite o controle centralizado de dados essenciais, como **lojas**, **funcionários**, **produtos** e **localidades**, facilitando as operações administrativas diárias.
+  **Aplicação web para gerenciar lojas, funcionários e produtos com interface administrativa.**
 
-A plataforma oferece uma **interface responsiva** e amigável para **cadastro, edição e exclusão** de informações, complementada por páginas de detalhes para uma visualização completa e eficiente dos dados.
+</div>
 
------
+---
 
-### ✨ Características Principais
+## 🎯 Sobre o Projeto
 
-  * **🏪 Gerenciamento de Lojas e Funcionários:** Módulos dedicados para o registro e manutenção de informações de todas as lojas e seus respectivos colaboradores.
-  * **📦 Cadastro e Controle de Produtos:** Controle de inventário e detalhes de todos os produtos comercializados.
-  * **🎨 Interface Responsiva (Thymeleaf):** Páginas dinâmicas e acessíveis em diferentes dispositivos, construídas com **Thymeleaf**.
-  * **💾 Persistência de Dados (Spring Data JPA):** Uso do Spring Data JPA para uma manipulação eficiente e simplificada do banco de dados.
-  * **✅ Validação de Dados:** Garantia da integridade dos dados através do **Spring Validation**.
-  * **🗄️ Banco de Dados H2:** Configurado para utilizar o banco de dados **H2** (em memória por padrão, ideal para desenvolvimento e testes).
+Este projeto é um sistema administrativo simples para cadastro e gerenciamento de:
+- Lojas (dados de endereço, contato e identificação)
+- Funcionários (vínculo com lojas, cargos e data de admissão)
+- Produtos (pertencentes a lojas, com preço e informações básicas)
 
------
+A aplicação foi construída com **Spring Boot** (backend) e **Thymeleaf** para as views, visando um sistema leve, didático e fácil de adaptar.
 
-### 💻 Stack Tecnológico
+---
 
-| Categoria | Tecnologia | Versão |
-| :--- | :--- | :--- |
-| **Framework Principal** | Spring Boot | 3.4 |
-| **Persistência** | Spring Data JPA (Hibernate) | |
-| **Web** | Spring Web (MVC) | |
-| **Frontend/Templates** | Thymeleaf, HTML5, CSS3, JavaScript | |
-| **Banco de Dados** | H2 Database | |
-| **Validação** | Spring Validation (Jakarta Validation) | |
-| **Build** | Maven | |
+## 🛠️ Stack Técnico
 
------
+### Backend
+- Linguagem: **Java 17+**
+- Framework: **Spring Boot 3.x**
+- Persistência: **Spring Data JPA (Hibernate)**
+- Banco de Dados em memória: **H2** (padrão de desenvolvimento)
+- Validação: **Spring Validation**
+- Build: **Maven (mvnw incluído)**
 
-### 🚀 Como Executar o Projeto
+### Frontend
+- Templates: **Thymeleaf**
+- Estilos: HTML5 + CSS (arquivos em `src/main/resources/static`)
+- JavaScript: interações básicas em `src/main/resources/static/js`
 
-#### Pré-requisitos
+### Ferramentas
+- Versionamento: Git
+- IDE recomendada: IntelliJ IDEA / VS Code
 
-  * Java Development Kit (**JDK 17** ou superior)
-  * Maven
+---
 
-#### 1\. Clone o Repositório
+## 📂 Estrutura do Projeto (resumida)
 
-```bash
-git clone [URL-DO-SEU-REPOSITÓRIO]
-cd sistema-gerenciamento-lojas
+```
+loja/
+├── src/
+│   ├── main/
+│   │   ├── java/com/sistema/loja/        # Código fonte
+│   │   │   ├── controller/               # Controllers MVC
+│   │   │   ├── model/                    # Entidades JPA
+│   │   │   └── repository/               # Repositórios Spring Data
+│   │   └── resources/
+│   │       ├── templates/administrativo/ # Views Thymeleaf
+│   │       └── static/                   # CSS, JS, imagens
+├── mvnw
+├── pom.xml
+└── README.md
 ```
 
-#### 2\. Compile e Execute
+---
 
-Utilize o Maven para empacotar e executar a aplicação:
+## 🚀 Como Rodar Localmente
 
-```bash
-# Compila o projeto e empacota o JAR
-mvn clean install
+Pré-requisitos:
+- Java 17+
+- Maven (ou use o wrapper `mvnw` incluído)
 
-# Executa o JAR gerado
-java -jar target/[nome-do-seu-arquivo].jar
+Passos rápidos (PowerShell):
+
+```powershell
+cd C:\Workspace\loja
+# Build e empacotar (skip tests para desenvolvimento)
+.\mvnw -DskipTests package
+# Rodar a aplicação
+.\mvnw spring-boot:run
 ```
 
-#### 3\. Acesse a Aplicação
+Acesse a aplicação em: `http://localhost:8080/administrativo`
 
-A aplicação será iniciada na porta padrão do Spring Boot.
+> Observação: a aplicação vem configurada para usar H2 em desenvolvimento. Para persistência em produção, configure um banco (Postgres, MySQL) em `application.properties`.
 
-  * Abra seu navegador e acesse: **`http://localhost:8080`**
+---
 
------
+## 🔍 Endpoints Principais
 
-### 🤝 Contribuição
+- `GET /administrativo` — Página principal (dashboard)
+- `GET /cadastroLoja` — Formulário de cadastro/edição de Loja
+- `GET /detalhesLoja?id={id}` — Página de detalhes da loja
+- `GET /cadastroFuncionario` — Formulário de cadastro/edição de Funcionário
+- `GET /detalhesFuncionario?id={id}` — Página de detalhes do funcionário
+- `GET /cadastroProduto` — Formulário de cadastro/edição de Produto
+- `GET /editarProduto?id={id}` — Editar produto
+- `GET /excluirProduto?id={id}` — Excluir produto
 
-Contribuições são sempre bem-vindas\! Se você tiver sugestões, reportar um bug ou quiser adicionar novos recursos, por favor, abra uma *issue* ou envie um *pull request*.
+(Alguns endpoints de Estados/Cidades foram descontinuados).
+
+---
+
+## ✅ Funcionalidades
+
+- Cadastro, edição e exclusão de Lojas, Funcionários e Produtos
+- Páginas de detalhe com informações completas e ações de editar/excluir
+- Validação básica de formulários
+- Layout simples e responsivo com Thymeleaf
+
+---
+
+## 🧪 Testes e Build
+
+Para rodar os testes e gerar o pacote:
+
+```powershell
+.\mvnw package
+```
+
+Para rodar testes unitários:
+
+```powershell
+.\mvnw test
+```
+
+---
+
+## ♻️ Considerações e Próximas Melhorias
+
+- Mover H2 para profile `dev` e configurar Postgres/MySQL para `prod`.
+- Adicionar autenticação/autorização (Spring Security).
+- Melhorar a interface com Bootstrap ou frontend em React/Vue.
+- Adicionar paginação e filtros nas listas (produtos, funcionários, lojas).
+- Adicionar testes de integração e CI (GitHub Actions).
+
+---
+
+## 📬 Contato
+
+- Desenvolvedor: **Linjohson**
+- Email: `linjohson1@email.com`
+- GitHub: https://github.com/Linjohson
+
+---
+
+## 📄 Licença
+
+Projeto licenciado sob **MIT** — veja `LICENSE` se presente.
+
+---
+
+<div align="center">
+  **Desenvolvido com ❤️ por Linjohson**  
+  ⭐ Se este projeto foi útil, considere dar uma estrela no GitHub!
+</div>
