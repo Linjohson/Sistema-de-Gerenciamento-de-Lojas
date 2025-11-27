@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Produtos - Loja</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/cadastro.css">
+</head>
+<body>
+    <header>
+        <h1>🏪 Loja - Sistema Administrativo</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/administrativo">Home</a></li>
+            <li><a href="/cadastroLoja">Cadastrar Lojas</a></li>
+            <li><a href="/cadastroFuncionario">Cadastrar Funcionários</a></li>
+            <li><a href="/cadastroProduto">Cadastrar Produtos</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="form-card">
+            <h2 th:if="${produto?.id == null}">📦 Cadastro de Produtos</h2>
+            <h2 th:if="${produto?.id != null}">✏️ Editar Produto</h2>
+
+            <div th:if="${mensagem}" class="alert alert-success" th:text="${mensagem}"></div>
+            <div th:if="${erro}" class="alert alert-error" th:text="${erro}"></div>
+
+            <form method="POST" action="/cadastroProduto">
+                <input type="hidden" name="id" th:value="${produto?.id}">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome <span class="required">*</span></label>
+                        <input type="text" id="nome" name="nome" th:value="${produto?.nome}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="codigoBarra">Código de Barras <span class="required">*</span></label>
+                        <input type="text" id="codigoBarra" name="codigoBarra" th:value="${produto?.codigoBarra}" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dataFabricacao">Data de Fabricação</label>
+                        <input type="date" id="dataFabricacao" name="dataFabricacao" th:value="${produto?.dataFabricacao}">
+                    </div>
+                    <div class="form-group">
+                        <label for="dataValidade">Data de Validade</label>
+                        <input type="date" id="dataValidade" name="dataValidade" th:value="${produto?.dataValidade}">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="valor">Valor (R$) <span class="required">*</span></label>
+                        <input type="number" step="0.01" id="valor" name="valor" th:value="${produto?.valor}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="estoque">Estoque</label>
+                        <input type="number" id="estoque" name="estoque" min="0" th:value="${produto?.estoque}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" name="descricao" rows="3" th:text="${produto?.descricao}"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="lojaId">Loja <span class="required">*</span></label>
+                    <select id="lojaId" name="lojaId" required>
+                        <option value="">-- Selecione uma Loja --</option>
+                        <option th:each="loja : ${lojas}" th:value="${loja.id}" th:text="${loja.nome}" th:selected="${produto?.loja != null and produto?.loja.id == loja.id}"></option>
+                    </select>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-success" th:if="${produto?.id == null}">✓ Cadastrar Produto</button>
+                    <button type="submit" class="btn btn-primary" th:if="${produto?.id != null}">✏️ Atualizar Produto</button>
+                    <a href="/administrativo" class="btn btn-secondary">✕ Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Sistema de Loja. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

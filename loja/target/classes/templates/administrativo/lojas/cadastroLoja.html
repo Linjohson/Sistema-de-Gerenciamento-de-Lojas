@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Lojas - Loja</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/cadastro.css">
+</head>
+<body>
+    <header>
+        <h1>🏪 Loja - Sistema Administrativo</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/administrativo">Home</a></li>
+            <li><a href="/cadastroLoja">Cadastrar Lojas</a></li>
+            <li><a href="/cadastroFuncionario">Cadastrar Funcionários</a></li>
+            <li><a href="/cadastroProduto">Cadastrar Produtos</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="form-card">
+            <h2 th:if="${loja?.id == null}">🏬 Cadastro de Lojas</h2>
+            <h2 th:if="${loja?.id != null}">✏️ Editar Loja</h2>
+
+            <div th:if="${mensagem}" class="alert alert-success" th:text="${mensagem}"></div>
+            <div th:if="${erro}" class="alert alert-error" th:text="${erro}"></div>
+
+            <form th:object="${loja}" method="POST" action="/cadastroLoja">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome da Loja <span class="required">*</span></label>
+                        <input type="text" id="nome" th:field="*{nome}" required>
+                        <span class="error" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="cnpj">CNPJ <span class="required">*</span></label>
+                        <input type="text" id="cnpj" th:field="*{cnpj}" placeholder="XX.XXX.XXX/XXXX-XX" required>
+                        <span class="error" th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cep">CEP <span class="required">*</span></label>
+                        <input type="text" id="cep" th:field="*{cep}" placeholder="XXXXX-XXX" required>
+                        <span class="error" th:if="${#fields.hasErrors('cep')}" th:errors="*{cep}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefone">Telefone <span class="required">*</span></label>
+                        <input type="tel" id="telefone" th:field="*{telefone}" placeholder="(XX) XXXXX-XXXX" required>
+                        <span class="error" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="endereco">Endereço (Rua) <span class="required">*</span></label>
+                    <input type="text" id="endereco" th:field="*{endereco}" required>
+                    <span class="error" th:if="${#fields.hasErrors('endereco')}" th:errors="*{endereco}"></span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="numero">Número <span class="required">*</span></label>
+                        <input type="text" id="numero" th:field="*{numero}" required>
+                        <span class="error" th:if="${#fields.hasErrors('numero')}" th:errors="*{numero}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="bairro">Bairro <span class="required">*</span></label>
+                        <input type="text" id="bairro" th:field="*{bairro}" required>
+                        <span class="error" th:if="${#fields.hasErrors('bairro')}" th:errors="*{bairro}"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cidade">Cidade</label>
+                        <input type="text" id="cidade" th:field="*{cidade}">
+                    </div>
+                    <div class="form-group">
+                        <label for="estado">Estado (UF)</label>
+                        <input type="text" id="estado" th:field="*{estado}" maxlength="2">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" th:field="*{email}">
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-success" th:if="${loja?.id == null}">✓ Cadastrar Loja</button>
+                    <button type="submit" class="btn btn-primary" th:if="${loja?.id != null}">✏️ Atualizar Loja</button>
+                    <a href="/administrativo" class="btn btn-secondary">✕ Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Sistema de Loja. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
