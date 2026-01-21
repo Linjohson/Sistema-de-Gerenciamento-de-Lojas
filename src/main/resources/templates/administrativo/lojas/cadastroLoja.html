@@ -9,12 +9,12 @@
 </head>
 <body>
     <header>
-        <h1>🏪 Loja - Sistema Administrativo</h1>
+        <h1>🏪 Sistema Administrativo de Lojas</h1>
     </header>
 
     <nav>
         <ul>
-            <li><a href="/administrativo">Home</a></li>
+            <li><a href="/home">Home</a></li>
             <li><a href="/cadastroLoja">Cadastrar Lojas</a></li>
             <li><a href="/cadastroFuncionario">Cadastrar Funcionários</a></li>
             <li><a href="/cadastroProduto">Cadastrar Produtos</a></li>
@@ -96,7 +96,7 @@
                 <div class="button-group">
                     <button type="submit" class="btn btn-success" th:if="${loja?.id == null}">✓ Cadastrar Loja</button>
                     <button type="submit" class="btn btn-primary" th:if="${loja?.id != null}">✏️ Atualizar Loja</button>
-                    <a href="/administrativo" class="btn btn-secondary">✕ Cancelar</a>
+                    <a href="/home" class="btn btn-secondary">✕ Cancelar</a>
                 </div>
             </form>
         </div>
