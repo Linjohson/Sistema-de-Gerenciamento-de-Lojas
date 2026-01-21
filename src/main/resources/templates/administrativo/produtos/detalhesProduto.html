@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Produto</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/cadastro.css">
+</head>
+<body>
+    <header>
+        <h1>📦 Detalhes do Produto</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/cadastroLoja">Cadastrar Lojas</a></li>
+            <li><a href="/cadastroFuncionario">Cadastrar Funcionários</a></li>
+            <li><a href="/cadastroProduto">Cadastrar Produtos</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="section">
+            <h2 th:text="${produto.nome}">Nome do Produto</h2>
+            <table>
+                <tr><th>ID</th><td th:text="${produto.id}"></td></tr>
+                <tr><th>Nome</th><td th:text="${produto.nome}"></td></tr>
+                <tr><th>Código de Barras</th><td th:text="${produto.codigoBarra}"></td></tr>
+                <tr><th>Descrição</th><td th:text="${produto.descricao}"></td></tr>
+                <tr><th>Data de Fabricação</th><td th:text="${#temporals.format(produto.dataFabricacao, 'dd/MM/yyyy')}"></td></tr>
+                <tr><th>Data de Validade</th><td th:text="${#temporals.format(produto.dataValidade, 'dd/MM/yyyy')}"></td></tr>
+                <tr><th>Valor (R$)</th><td th:text="${#numbers.formatDecimal(produto.valor, 1, 2, 'COMMA')}">0,00</td></tr>
+                <tr><th>Estoque</th><td th:text="${produto.estoque}"></td></tr>
+                <tr><th>Loja</th><td th:text="${produto.loja.nome}"></td></tr>
+            </table>
+
+            <div style="margin-top:12px;">
+                <a th:href="@{'/editarProduto'(id=${produto.id})}" class="btn btn-primary">✏️ Editar</a>
+                <a th:href="@{'/excluirProduto'(id=${produto.id})}" onclick="return confirm('Deseja realmente excluir este produto?')" class="btn btn-danger">🗑️ Deletar</a>
+                <a href="/home" class="btn btn-secondary">✕ Voltar</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Sistema de Loja. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

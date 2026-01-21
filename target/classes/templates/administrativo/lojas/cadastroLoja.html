@@ -40,7 +40,7 @@
                     </div>
                     <div class="form-group">
                         <label for="cnpj">CNPJ <span class="required">*</span></label>
-                        <input type="text" id="cnpj" th:field="*{cnpj}" placeholder="XX.XXX.XXX/XXXX-XX" required>
+                        <input type="text" id="cnpj" th:field="*{cnpj}" placeholder="XX.XXX.XXX/XXXX-XX" maxlength="18" required>
                         <span class="error" th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}"></span>
                     </div>
                 </div>
@@ -48,12 +48,12 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="cep">CEP <span class="required">*</span></label>
-                        <input type="text" id="cep" th:field="*{cep}" placeholder="XXXXX-XXX" required>
+                        <input type="text" id="cep" th:field="*{cep}" placeholder="XXXXX-XXX" maxlength="9" required>
                         <span class="error" th:if="${#fields.hasErrors('cep')}" th:errors="*{cep}"></span>
                     </div>
                     <div class="form-group">
                         <label for="telefone">Telefone <span class="required">*</span></label>
-                        <input type="tel" id="telefone" th:field="*{telefone}" placeholder="(XX) XXXXX-XXXX" required>
+                        <input type="tel" id="telefone" th:field="*{telefone}" placeholder="(XX) XXXXX-XXXX" maxlength="15" required>
                         <span class="error" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></span>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" th:field="*{email}">
+                    <input type="email" id="email" th:field="*{email}" placeholder="exemplo@gmail.com">
                 </div>
 
                 <div class="button-group">
@@ -105,5 +105,6 @@
     <footer>
         <p>&copy; 2025 Sistema de Loja. Todos os direitos reservados.</p>
     </footer>
+    <script src="/js/actions.js"></script>
 </body>
 </html>

@@ -114,9 +114,10 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>Nome</th>
                             <th>Preço</th>
+                            <th>Código de Barras</th>
                             <th>Loja</th>
                             <th>Ações</th>
                         </tr>
@@ -126,10 +127,10 @@
                             <td th:text="${produto.id}"></td>
                             <td th:text="${produto.nome}"></td>
                             <td th:text="${#numbers.formatDecimal(produto.valor, 1, 2, 'COMMA')}">0,00</td>
+                            <td th:text="${produto.codigoBarra}"></td>
                             <td th:text="${produto.loja.nome}"></td>
                             <td>
-                                <a th:href="@{'/editarProduto'(id=${produto.id})}" class="btn btn-secondary">Editar</a>
-                                <a th:href="@{'/excluirProduto'(id=${produto.id})}" onclick="return confirmDelete('produto')" class="btn btn-danger">Deletar</a>
+                                <a th:href="@{'/detalhesProduto'(id=${produto.id})}" class="btn btn-secondary">ℹ️ Mais informações</a>
                             </td>
                         </tr>
                     </tbody>

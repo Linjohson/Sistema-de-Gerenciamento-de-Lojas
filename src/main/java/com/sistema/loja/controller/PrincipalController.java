@@ -30,11 +30,9 @@ public class PrincipalController {
     @GetMapping("/home")
     public String acessarPrincipal(Model model){
         model.addAttribute("lojas", lojasRepository.findAll());
-        // Removido carregamento de cidades - não mais utilizado
         model.addAttribute("produtos", produtoRepository.findAll());
 
         List<Funcionario> funcionarios = funcionarioRepository.findAll();
-        // Agrupa funcionários por loja.id para uso direto no template
         Map<Long, List<Funcionario>> funcionariosPorLoja = funcionarios.stream()
                 .filter(f -> f.getLoja() != null)
                 .collect(Collectors.groupingBy(f -> f.getLoja().getId()));
