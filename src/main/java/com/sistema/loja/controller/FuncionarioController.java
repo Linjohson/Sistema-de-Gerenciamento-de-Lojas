@@ -65,14 +65,14 @@ public class FuncionarioController {
             ra.addFlashAttribute("mensagem", "Funcionário '" + funcionario.getNome() + "' cadastrado com sucesso!");
         }
 
-        return "redirect:/administrativo";
+        return "redirect:/home";
     }
 
     @GetMapping("/editarFuncionario")
     public String editar(@RequestParam("id") Long id, Model model) {
         Funcionario funcionario = funcionarioRepository.findById(id).orElse(null);
         if (funcionario == null) {
-            return "redirect:/administrativo";
+            return "redirect:/home";
         }
         model.addAttribute("funcionario", funcionario);
         model.addAttribute("lojas", lojasRepository.findAll());
@@ -87,14 +87,14 @@ public class FuncionarioController {
             funcionarioRepository.deleteById(id);
             ra.addFlashAttribute("mensagem", "Funcionário '" + nomeFuncionario + "' deletado com sucesso!");
         }
-        return "redirect:/administrativo";
+        return "redirect:/home";
     }
 
     @GetMapping("/detalhesFuncionario")
     public String detalhes(@RequestParam("id") Long id, Model model) {
         Funcionario funcionario = funcionarioRepository.findById(id).orElse(null);
         if (funcionario == null) {
-            return "redirect:/administrativo";
+            return "redirect:/home";
         }
         model.addAttribute("funcionario", funcionario);
         return "administrativo/funcionarios/detalhesFuncionario";

@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sistema.loja.model.Loja;
+import com.sistema.loja.repository.FuncionarioRepository;
 import com.sistema.loja.repository.LojasRepository;
 import com.sistema.loja.repository.ProdutoRepository;
-import com.sistema.loja.repository.FuncionarioRepository;
 
 import jakarta.validation.Valid;
 
@@ -77,14 +77,14 @@ public class LojaController {
             ra.addFlashAttribute("mensagem", "Loja '" + loja.getNome() + "' cadastrada com sucesso!");
         }
 
-        return "redirect:/administrativo";
+        return "redirect:/home";
     }
 
     @GetMapping("/editarLoja")
     public String editar(@RequestParam("id") Long id, Model model) {
         Loja loja = lojasRepository.findById(id).orElse(null);
         if (loja == null) {
-            return "redirect:/administrativo";
+            return "redirect:/home";
         }
         model.addAttribute("loja", loja);
         return "administrativo/lojas/cadastroLoja";
@@ -98,7 +98,7 @@ public class LojaController {
             lojasRepository.deleteById(id);
             ra.addFlashAttribute("mensagem", "Loja '" + nomeLoja + "' deletada com sucesso!");
         }
-        return "redirect:/administrativo";
+        return "redirect:/home";
     }
 
     @Autowired
@@ -108,7 +108,7 @@ public class LojaController {
     public String detalhes(@RequestParam("id") Long id, Model model) {
         Loja loja = lojasRepository.findById(id).orElse(null);
         if (loja == null) {
-            return "redirect:/administrativo";
+            return "redirect:/home";
         }
         model.addAttribute("loja", loja);
         model.addAttribute("funcionarios", funcionarioRepository.findByLoja(loja));

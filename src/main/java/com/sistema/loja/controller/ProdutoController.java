@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sistema.loja.model.Produto;
 import com.sistema.loja.model.Loja;
-import com.sistema.loja.repository.ProdutoRepository;
+import com.sistema.loja.model.Produto;
 import com.sistema.loja.repository.LojasRepository;
+import com.sistema.loja.repository.ProdutoRepository;
 
 @Controller
 public class ProdutoController {
@@ -51,7 +51,7 @@ public class ProdutoController {
         boolean isEdicao = produto.getId() != null;
         String mensagem = isEdicao ? "Produto atualizado com sucesso!" : "Produto cadastrado com sucesso!";
         ra.addFlashAttribute("mensagem", mensagem);
-        return "redirect:/administrativo";
+        return "redirect:/home";
     }
 
     @GetMapping("/editarProduto")
@@ -63,10 +63,18 @@ public class ProdutoController {
         return mv;
     }
 
+    @GetMapping("/detalhesProduto")
+    public ModelAndView detalhes(@RequestParam("id") Long id){
+        ModelAndView mv = new ModelAndView("administrativo/produtos/detalhesProduto");
+        Produto p = produtoRepository.findById(id).orElse(new Produto());
+        mv.addObject("produto", p);
+        return mv;
+    }
+
     @GetMapping("/excluirProduto")
     public String excluir(@RequestParam("id") Long id, RedirectAttributes ra){
         produtoRepository.deleteById(id);
         ra.addFlashAttribute("mensagem", "Produto excluído com sucesso!");
-        return "redirect:/administrativo";
+        return "redirect:/home";
     }
 }
