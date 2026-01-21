@@ -1,19 +1,18 @@
 package com.sistema.loja.controller;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.sistema.loja.repository.LojasRepository;
-// As funcionalidades de cadastro de Estados e Cidades foram removidas.
-import com.sistema.loja.repository.ProdutoRepository;
-import com.sistema.loja.repository.FuncionarioRepository;
 import com.sistema.loja.model.Funcionario;
-
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import com.sistema.loja.repository.FuncionarioRepository;
+import com.sistema.loja.repository.LojasRepository;
+import com.sistema.loja.repository.ProdutoRepository;
 
 @Controller
 public class PrincipalController {
@@ -28,7 +27,7 @@ public class PrincipalController {
     @Autowired
     private FuncionarioRepository funcionarioRepository;
 
-    @GetMapping("/administrativo")
+    @GetMapping("/Home")
     public String acessarPrincipal(Model model){
         model.addAttribute("lojas", lojasRepository.findAll());
         // Removido carregamento de cidades - não mais utilizado
