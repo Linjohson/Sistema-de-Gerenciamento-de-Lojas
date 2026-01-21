@@ -27,7 +27,7 @@ public class PrincipalController {
     @Autowired
     private FuncionarioRepository funcionarioRepository;
 
-    @GetMapping("/Home")
+    @GetMapping("/home")
     public String acessarPrincipal(Model model){
         model.addAttribute("lojas", lojasRepository.findAll());
         // Removido carregamento de cidades - não mais utilizado
